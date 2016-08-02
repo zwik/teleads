@@ -10,7 +10,12 @@ Ext.define('Ads.view.main.MainController', {
     alias: 'controller.main',
 
 	config: {
-		data: null
+		data: null,
+		aangeboden: [],
+		gevraagd: [],
+		ruilen: [],
+		oproepen: [],
+		overig: []
 	},
 
 	init: function () {
@@ -31,6 +36,7 @@ Ext.define('Ads.view.main.MainController', {
 			}
 		};
 		xhr.send();
+		console.info('YQL sent');
 
 		Ext.Deferred.all([deferred.promise]).then(function(response) {
 			this.processData(response);
@@ -38,16 +44,70 @@ Ext.define('Ads.view.main.MainController', {
 	},
 
 	processData: function (data) {
+		console.info('Start processing data');
+
 		data = data[0];
 		this.setData(data.query.results.tbody.tr);
 		this.processRows();
 	},
 
 	processRows: function() {
+		console.info('Start processing rows');
+
 		var rows = this.getData();
-		for (var i = 0; i <= rows.length; i++) {
-			debugger;
+
+		for (var i = 0; i < rows.length; i++) {
+			console.info('Ad ' + i + ' of ' + rows.length + ' will be added');
+			
+			if (rows[i].bgcolor === undefined) {
+				continue; // This is the first row of the table, nothing interesting here.
+			}
+
+			console.info('Ad ' + i + ' will be added');
+
+			var advertentie = {
+				sectie: rows[i].td[0].content,
+				titel: rows[i].td[1].a.content,
+				link: rows[i].td[1].a.href,
+				prijs: rows[i].td[2].content,
+				aanbieder: rows[i].td[3],
+				hits: rows[i].td[4].content,
+				geplaatst: rows[i].td[5].content
+			}
+
+			this.addToArray(advertentie);
 		}
+
+		console.info('Rows processed!');
+	},
+
+	addToArray: function (ad) {
+		var aangeboden = this.getAangeboden(),
+			gevraagd = this.getGevraagd(),
+			ruilen = this.getRuilen(),
+			oproepen = this.getOproepen(),
+			overig = this.getOverig();
+
+		switch(ad.sectie) {
+			case 'aangeboden':
+				aangeboden.push(ad);
+				break;
+			case 'gevraagd':
+				gevraagd.push(ad);
+				break;
+			case 'ruilen':
+				ruilen.push(ad);
+				break;
+			case 'oproepen':
+				oproepen.push(ad);
+				break;
+			case 'overig':
+				overig.push(ad);
+				break;
+			default:
+		}
+
+		console.info('Ad added');
 	},
 
     onItemSelected: function (sender, record) {
