@@ -5,15 +5,15 @@
  */
 Ext.define('Ads.Application', {
     extend: 'Ext.app.Application',
-    
+
     name: 'Ads',
 
-    stores: [
-        // TODO: add global / shared stores here
-    ],
-    
+    models: [ 'Advertentie' ],
+
+    stores: [ 'Advertenties' ],
+
     launch: function () {
-		
+
 	},
 
     onAppUpdate: function () {

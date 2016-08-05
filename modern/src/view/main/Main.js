@@ -14,7 +14,8 @@ Ext.define('Ads.view.main.Main', {
 
         'Ads.view.main.MainController',
         'Ads.view.main.MainModel',
-        'Ads.view.main.List'
+        'Ads.view.main.List',
+        'Ads.view.main.AdList'
     ],
 
     controller: 'main',
@@ -38,6 +39,14 @@ Ext.define('Ads.view.main.Main', {
             items: [{
                 xtype: 'mainlist'
             }]
+        },
+        {
+          title: 'test',
+          iconCls: 'x-fa fa-home',
+          layout: 'fit',
+          items: [{
+            xtype: 'adlist'
+          }]
         },{
             title: 'Users',
             iconCls: 'x-fa fa-user',

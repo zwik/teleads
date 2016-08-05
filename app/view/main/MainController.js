@@ -18,6 +18,8 @@ Ext.define('Ads.view.main.MainController', {
 		overig: []
 	},
 
+  stores: [ 'Ads.store.Advertenties' ],
+
 	init: function () {
 		// select * from html where url='http://www.te-les-koop.nl/advertenties.php' and xpath='/html/body/table/tbody/tr/td[1]/table/tbody/tr/td/table/tbody'
 		var url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fwww.te-les-koop.nl%2Fadvertenties.php%22%20and%20xpath%3D'%2Fhtml%2Fbody%2Ftable%2Ftbody%2Ftr%2Ftd%5B1%5D%2Ftable%2Ftbody%2Ftr%2Ftd%2Ftable%2Ftbody'&format=json&diagnostics=true&callback=",
@@ -75,6 +77,10 @@ Ext.define('Ads.view.main.MainController', {
 		}
 
 		console.info('Rows processed!');
+    //debugger;
+    var store = Ext.getStore('Advertenties');
+    store.setData(this.getGevraagd());
+    //debugger;
 	},
 
 	addToArray: function (ad) {

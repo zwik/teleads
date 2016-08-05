@@ -3,7 +3,7 @@
      * The application's namespace.
      */
     "name": "Ads",
-    
+
     /**
      * The version of the application.
      */
@@ -41,10 +41,10 @@
      * The Sencha Framework for this application: "ext" or "touch".
      */
     "framework": "ext",
-    
-    
-    
-    
+
+
+
+
     /**
      * The list of required packages (with optional versions; default is "latest").
      *
@@ -91,7 +91,7 @@
          *      "save": "sass/save.scss"
          *
          */
-         
+
         /**
          * Comma-separated list of files or folders containing extra Sass. These
          * files are automatically included in the Sass compilation. By default this
@@ -212,18 +212,6 @@
         }
     ],
 
-    
-    /**
-     * Settings specific to classic toolkit builds.
-     */
-    "classic": {
-        "js": [
-            // Remove this entry to individually load sources from the framework.
-            {
-                "path": "${framework.dir}/build/ext-all-rtl-debug.js"
-            }
-        ]
-    },
 
     /**
      * Settings specific to modern toolkit builds.
@@ -314,13 +302,13 @@
             "type": "yui"
         }
     },
-    
+
     /**
      * Settings specific to testing builds.
      */
     "testing": {
     },
-    
+
     /**
      * Settings specific to development builds.
      */
@@ -363,9 +351,9 @@
      */
     "bootstrap": {
         "base": "${app.dir}",
-        
+
         "manifest": "${build.id}.json",
-        
+
         "microloader": "bootstrap.js",
         "css": "bootstrap.css"
     },
@@ -410,7 +398,7 @@
      *      }
      *
      */
-    
+
     "output": {
         "base": "${workspace.build.dir}/${build.environment}/${app.name}",
         "page": "index.html",
@@ -424,8 +412,8 @@
             "shared": "resources"
         }
     },
-    
-    
+
+
     /**
     * Controls for localStorage caching
     *   "cache": {
@@ -441,12 +429,12 @@
     *       "deltas": "deltas"
     *   }
     */
-    
+
     "cache": {
         "enable": false,
         "deltas": "${build.id}/deltas"
     },
-    
+
 
     /**
      * Used to automatically generate cache.manifest (HTML 5 application cache manifest)
@@ -501,9 +489,9 @@
      * generated inside this directory must be kept intact for proper generation of
      * deltas between updates.
      */
-    
+
     "archivePath": "archive/${build.id}",
-    
+
 
 
     /**
@@ -536,11 +524,6 @@
      * names.
      *
      *     "builds": {
-     *         "classic": {
-     *             "toolkit": "classic",
-     *             "theme": "theme-neptune"
-     *         },
-     *
      *         "modern": {
      *             "toolkit": "modern",
      *             "theme": "theme-neptune"
@@ -548,21 +531,11 @@
      *     }
      *
      */
-    
-    "builds": {
-        "classic": {
-            "toolkit": "classic",
-            
-            "theme": "theme-triton",
-            
-            "sass": {
-                // "save": "classic/sass/save.scss"
-            }
-        },
 
+    "builds": {
         "modern": {
             "toolkit": "modern",
-            
+
             "theme": "theme-triton",
             
             "sass": {
@@ -570,7 +543,7 @@
             }
         }
     },
-    
+
 
     /**
      * Uniquely generated id for this application, used as prefix for localStorage keys.
