@@ -57,13 +57,9 @@ Ext.define('Ads.view.main.MainController', {
 		var rows = this.getData();
 
 		for (var i = 0; i < rows.length; i++) {
-			console.info('Ad ' + i + ' of ' + rows.length + ' will be added');
-			
 			if (rows[i].bgcolor === undefined) {
 				continue; // This is the first row of the table, nothing interesting here.
 			}
-
-			console.info('Ad ' + i + ' will be added');
 
 			var advertentie = {
 				sectie: rows[i].td[0].content,
