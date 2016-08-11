@@ -13,8 +13,7 @@ Ext.define('Ads.view.main.Main', {
         'Ext.MessageBox',
 
         'Ads.view.main.MainController',
-        'Ads.view.main.MainModel',
-        'Ads.view.main.List'
+        'Ads.view.main.MainModel'
     ],
 
     controller: 'main',
