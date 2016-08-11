@@ -6,7 +6,7 @@ Ext.define('Ads.view.main.AdList', {
         'Ads.store.Advertenties'
     ],
 
-    store: 'Ads.store.Advertenties',
+    store: 'Advertenties',
     itemTpl: '{titel}',
     title: 'Advertenties'
 });

@@ -8,9 +8,11 @@ Ext.define('Ads.Application', {
 
     name: 'Ads',
 
-    models: [ 'Advertentie' ],
+    //models: [ 'Advertentie' ],
 
-    stores: [ 'Advertenties' ],
+    //stores: [ 'Advertenties' ],
+	
+	controllers: [ 'Application' ],
 
     launch: function () {
 
