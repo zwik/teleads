@@ -1,8 +1,7 @@
-Ext.define('Ads.store.Advertenties', {
+Ext.define('Ads.store.Overig', {
     extend: 'Ext.data.Store',
 
     config: {
-        //storeId: 'advertenties',
         autoLoad: true,
         model: 'Ads.model.Advertentie',
         proxy: {

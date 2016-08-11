@@ -14,8 +14,7 @@ Ext.define('Ads.view.main.Main', {
 
         'Ads.view.main.MainController',
         'Ads.view.main.MainModel',
-        'Ads.view.main.List',
-        'Ads.view.main.AdList'
+        'Ads.view.main.List'
     ],
 
     controller: 'main',
@@ -32,39 +31,51 @@ Ext.define('Ads.view.main.Main', {
 
     items: [
         {
-            title: 'Home',
-            iconCls: 'x-fa fa-home',
+            title: 'Aangeboden',
+            iconCls: 'x-fa fa-tag',
             layout: 'fit',
-            // The following grid shares a store with the classic version's grid as well!
             items: [{
-                xtype: 'mainlist'
+                xtype: 'list',
+				store: 'Aangeboden',
+				itemTpl: '{titel}'
             }]
         },
         {
-          title: 'test',
-          iconCls: 'x-fa fa-home',
+          title: 'Gevraagd',
+          iconCls: 'x-fa fa-bullseye',
           layout: 'fit',
           items: [{
-            xtype: 'adlist'
+            xtype: 'list',
+			store: 'Gevraagd',
+			itemTpl: '{titel}'
           }]
         },{
-            title: 'Users',
-            iconCls: 'x-fa fa-user',
-            bind: {
-                html: '{loremIpsum}'
-            }
+            title: 'Ruilen',
+            iconCls: 'x-fa fa-balance-scale',
+			layout: 'fit',
+			items: [{
+				xtype: 'list',
+				store: 'Ruilen',
+				itemTpl: '{titel}'
+			}]
         },{
-            title: 'Groups',
-            iconCls: 'x-fa fa-users',
-            bind: {
-                html: '{loremIpsum}'
-            }
+            title: 'Oproepn',
+            iconCls: 'x-fa fa-bullhorn',
+			layout: 'fit',
+			items: [{
+				xtype: 'list',
+				store: 'Oproepen',
+				itemTpl: '{titel}'
+			}]
         },{
-            title: 'Settings',
-            iconCls: 'x-fa fa-cog',
-            bind: {
-                html: '{loremIpsum}'
-            }
+            title: 'Overig',
+            iconCls: 'x-fa fa-question',
+			layout: 'fit',
+			items: [{
+				xtype: 'list',
+				store: 'Overig',
+				itemTpl: '{titel}'
+			}]
         }
     ]
 });
