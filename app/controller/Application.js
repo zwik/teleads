@@ -66,14 +66,13 @@ Ext.define('Ads.controller.Application', {
 				prijs: rows[i].td[2].content,
 				aanbieder: rows[i].td[3],
 				hits: rows[i].td[4].content,
-				geplaats: rows[i].td[5].content
+				geplaatst: rows[i].td[5].content
 			};
 
 			this.addToArray(advertentie);
 		}
 
 		console.info('Rows Processed!');
-		//debugger;
 		var aangebodenStore = Ext.getStore('Aangeboden'),
 			gevraagdStore = Ext.getStore('Gevraagd'),
 			ruilenStore = Ext.getStore('Ruilen'),
@@ -85,7 +84,6 @@ Ext.define('Ads.controller.Application', {
 		ruilenStore.setData(this.getRuilen());
 		oproepenStore.setData(this.getOproepen());
 		overigStore.setData(this.getOverig());
-		//debugger;
 	},
 
 	addToArray: function (ad) {

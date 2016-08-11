@@ -36,7 +36,13 @@ Ext.define('Ads.view.main.Main', {
             items: [{
                 xtype: 'list',
 				store: 'Aangeboden',
-				itemTpl: '{titel}'
+				itemTpl: '<div class=\"advertentie\">' +
+						 '<div class=\"left\">' +
+						 '{titel} <br>' +
+						 '{aanbieder} - {prijs} <br>' +
+						 '{geplaatst}' +
+						 '</div>' +
+						 '</div>'
             }]
         },
         {
