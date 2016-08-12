@@ -19,17 +19,15 @@ Ext.define('Ads.view.main.Main', {
     controller: 'main',
     viewModel: 'main',
 
-    defaults: {
-        tab: {
-            iconAlign: 'top'
-        },
-        styleHtmlContent: true
-    },
-
     tabBarPosition: 'bottom',
+	
+	tabBar: {
+		scrollable: 'horizontal'
+	},
 
     items: [ 
 		{
+			title: '',
             iconCls: 'x-fa fa-tag',
             layout: 'fit',
             items: [ {
