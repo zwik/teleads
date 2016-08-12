@@ -10,3 +10,9 @@ $enable-font-awesome: dynamic(true);
 .x-tabbar .x-button-label {
 	display: none;
 }
+
+.advertentie {
+	.aanbieder, .prijs, .geplaatst {
+		color: grey;
+	}
+}

@@ -38,11 +38,10 @@ Ext.define('Ads.view.main.Main', {
 					xtype: 'list',
 					store: 'Aangeboden',
 					itemTpl: '<div class=\"advertentie\">' +
-							 '<div class=\"left\">' +
-							 '{titel} <br>' +
-							 '{aanbieder} - {prijs} <br>' +
-							 '{geplaatst}' +
-							 '</div>' +
+							 '<div class=\"titel\">{titel}</div>' +
+							 '<div class=\"aanbieder\">Aanbieder: {aanbieder}</div>' +
+							 '<div class=\"prijs\">Prijs: {prijs}</div>' +
+							 '<div class=\"geplaatst\">Geplaatst: {geplaatst}</div>' +
 							 '</div>'
 				} ]
 			} ]
@@ -57,11 +56,10 @@ Ext.define('Ads.view.main.Main', {
 					xtype: 'list',
 					store: 'Gevraagd',
 					itemTpl: '<div class=\"advertentie\">' +
-							 '<div class=\"left\">' +
-							 '{titel} <br>' +
-							 '{aanbieder} - {prijs} <br>' +
-							 '{geplaatst}' +
-							 '</div>' +
+							 '<div class=\"titel\">{titel}</div>' +
+							 '<div class=\"aanbieder\">Aanbieder: {aanbieder}</div>' +
+							 '<div class=\"prijs\">Prijs: {prijs}</div>' +
+							 '<div class=\"geplaatst\">Geplaatst: {geplaatst}</div>' +
 							 '</div>'
 				} ]
 			} ]
@@ -76,12 +74,12 @@ Ext.define('Ads.view.main.Main', {
 					xtype: 'list',
 					store: 'Ruilen',
 					itemTpl: '<div class=\"advertentie\">' +
-							 '<div class=\"left\">' +
-							 '{titel} <br>' +
-							 '{aanbieder} - {prijs} <br>' +
-							 '{geplaatst}' +
-							 '</div>' +
+							 '<div class=\"titel\">{titel}</div>' +
+							 '<div class=\"aanbieder\">Aanbieder: {aanbieder}</div>' +
+							 '<div class=\"prijs\">Prijs: {prijs}</div>' +
+							 '<div class=\"geplaatst\">Geplaatst: {geplaatst}</div>' +
 							 '</div>'
+					
 				} ]
 			} ]
         }, {
@@ -95,11 +93,10 @@ Ext.define('Ads.view.main.Main', {
 					xtype: 'list',
 					store: 'Oproepen',
 					itemTpl: '<div class=\"advertentie\">' +
-							 '<div class=\"left\">' +
-							 '{titel} <br>' +
-							 '{aanbieder} - {prijs} <br>' +
-							 '{geplaatst}' +
-							 '</div>' +
+							 '<div class=\"titel\">{titel}</div>' +
+							 '<div class=\"aanbieder\">Aanbieder: {aanbieder}</div>' +
+							 '<div class=\"prijs\">Prijs: {prijs}</div>' +
+							 '<div class=\"geplaatst\">Geplaatst: {geplaatst}</div>' +
 							 '</div>'
 				} ]
 			} ]
@@ -114,11 +111,10 @@ Ext.define('Ads.view.main.Main', {
 					xtype: 'list',
 					store: 'Overig',
 					itemTpl: '<div class=\"advertentie\">' +
-							 '<div class=\"left\">' +
-							 '{titel} <br>' +
-							 '{aanbieder} - {prijs} <br>' +
-							 '{geplaatst}' +
-							 '</div>' +
+							 '<div class=\"titel\">{titel}</div>' +
+							 '<div class=\"aanbieder\">Aanbieder: {aanbieder}</div>' +
+							 '<div class=\"prijs\">Prijs: {prijs}</div>' +
+							 '<div class=\"geplaatst\">Geplaatst: {geplaatst}</div>' +
 							 '</div>'
 				} ]
 			} ]
