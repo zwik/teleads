@@ -102,6 +102,7 @@ Ext.define('Ads.controller.Application', {
 		overigStore.setData(this.getOverig());
 
 		this.getNavView().getNavigationBar().setTitle('Aangeboden');
+		this.getNavView().setMasked(false);
 	},
 
 	addToArray: function (ad) {
@@ -134,6 +135,10 @@ Ext.define('Ads.controller.Application', {
 	},
 
 	onItemSingleTap: function (self, index, target, record, e, eOpts) {
+		this.getNavView().setMasked({
+			xtype: 'loadmask',
+			message: 'Laden van advertentie'
+		});
 		this.fetchDetails(record);
 	},
 
@@ -238,6 +243,7 @@ Ext.define('Ads.controller.Application', {
 
 		navView.push(form);
 		navView.getNavigationBar().setTitle(advertentie.titel);
+		navView.setMasked(false);
 
 	},
 	

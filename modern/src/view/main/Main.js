@@ -8,6 +8,11 @@ Ext.define('Ads.view.main.Main', {
 
 	fullscreen: true,
 
+	masked: {
+		xtype: 'loadmask',
+		message: 'Laden van advertenties'
+	},
+
 	items: [ {
 		xtype: 'app-lists'
 	} ]
