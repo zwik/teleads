@@ -5,12 +5,28 @@ Ext.define('Ads.controller.Application', {
 	
 	config: {
 		data: null,
+		details: null,
+		lijst: '',
 		aangeboden: [],
 		gevraagd: [],
 		ruilen: [],
 		oproepen: [],
 		overig: []
 	},
+
+	control: {
+		'list': {
+			itemsingletap: 'onItemSingleTap'
+		},
+		'navigationview': {
+			back: 'onBack'
+		}
+	},
+
+	refs: [ {
+		ref: 'navView',
+		selector: 'navigationview'
+	} ],
 	
 	init: function() {
 		this.makeRequest();
@@ -84,6 +100,8 @@ Ext.define('Ads.controller.Application', {
 		ruilenStore.setData(this.getRuilen());
 		oproepenStore.setData(this.getOproepen());
 		overigStore.setData(this.getOverig());
+
+		this.getNavView().getNavigationBar().setTitle('Aangeboden');
 	},
 
 	addToArray: function (ad) {
@@ -113,5 +131,117 @@ Ext.define('Ads.controller.Application', {
 		}
 
 		console.info('Ad added');
+	},
+
+	onItemSingleTap: function (self, index, target, record, e, eOpts) {
+		this.fetchDetails(record);
+	},
+
+	// select * from html where url='http://www.te-les-koop.nl/BekijkAdvertentie.php?key=22668' and xpath='/html/body/table[1]/tbody/tr[2]/td/table/tbody/tr/td | /html/body/table[2]/tbody'
+	fetchDetails: function (record) {
+		var urlP1 = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'http%3A%2F%2Fwww.te-les-koop.nl%2FBekijkAdvertentie.php%3Fkey%3D",
+			urlP2 = "'%20and%20xpath%3D'%2Fhtml%2Fbody%2Ftable%5B1%5D%2Ftbody%2Ftr%5B2%5D%2Ftd%2Ftable%2Ftbody%2Ftr%2Ftd%20%7C%20%2Fhtml%2Fbody%2Ftable%5B2%5D%2Ftbody'&format=json&diagnostics=true&callback=",
+			advertentieId = record.get('link').split('=')[1],
+			url = urlP1 + advertentieId + urlP2,
+			me = this,
+			deferred = new Ext.Deferred(),
+			xhr = new XMLHttpRequest();
+
+		xhr.open('get', url, true);
+		xhr.responseType = 'json';
+		xhr.onload = function() {
+			var status = xhr.status;
+			if (status === 200) {
+				deferred.resolve(xhr.response);
+			} else {
+				deferred.reject(status);
+			}
+		};
+		xhr.send();
+		console.info('Detailed YQL sent');
+
+		Ext.Deferred.all([deferred.promise]).then(function(response) {
+			this.processDetails(response, record);
+		}, null, null, me);
+	},
+
+	processDetails: function (data, record) {
+		console.info('Start processing details');
+
+		var advertentieDetails = {
+				titel: record.get('titel'),
+				advertentie: data[0].query.results.td.content,
+				bedrag: data[0].query.results.tbody.tr[0].td[1].content,
+				adverteerder: data[0].query.results.tbody.tr[1].td[1].a.content,
+				mail: data[0].query.results.tbody.tr[1].td[1].a.href,
+				woonplaats: data[0].query.results.tbody.tr[2].td[1],
+				telefoonnummer: data[0].query.results.tbody.tr[3].td[1],
+				categorie: data[0].query.results.tbody.tr[4].td[1]
+			};
+
+		this.setLijst(this.getNavView().getNavigationBar().getTitle());
+		this.setDetails(advertentieDetails);
+		this.createDetailForm();
+	},
+
+	createDetailForm: function () {
+		var advertentie = this.getDetails(),
+			form = Ext.create('Ext.form.Panel', {
+				header: false,
+				items: [ 
+				{
+					xtype: 'textareafield',
+					labelAlign: 'top',
+					label: 'Advertentie',
+					value: advertentie.advertentie,
+					readOnly: true
+				}, {
+					xtype: 'textfield',
+					labelAlign: 'top',
+					label: 'Verkoper',
+					value: advertentie.adverteerder,
+					readOnly: true
+				}, {
+					xtype: 'textfield',
+					labelAlign: 'top',
+					label: 'Prijs',
+					value: advertentie.bedrag,
+					readOnly: true
+				}, {
+					xtype: 'textfield',
+					labelAlign: 'top',
+					label: 'Woonplaats',
+					value: advertentie.woonplaats,
+					readOnly: true
+				}, {
+					xtype: 'emailfield',
+					labelAlign: 'top',
+					label: 'Mail',
+					value: advertentie.mail.split('mailto:')[1],
+					readOnly: true
+				}, {
+					xtype: 'textfield',
+					labelAlign: 'top',
+					label: 'Telefoonnummer',
+					value: advertentie.telefoonnummer,
+					readOnly: true
+				}, {
+					xtype: 'textfield',
+					labelAlign: 'top',
+					label: 'Categorie',
+					value: advertentie.categorie,
+					readOnly: true
+				}
+				]
+			}),
+			navView = this.getNavView();
+
+		navView.push(form);
+		navView.getNavigationBar().setTitle(advertentie.titel);
+
+	},
+	
+	onBack: function (self, view, eOpts) {
+		this.getNavView().getNavigationBar().setTitle(this.getLijst());
 	}
 });
