@@ -4,10 +4,6 @@
 Ext.define('Ext.overrides.list.TreeItem', {
     override: 'Ext.list.TreeItem',
 
-    config: {
-        floated: null
-    },
-
     // Implement a setter.
     // There *is* no "floated" config in Classic.
     // We're still an inner item, we just get put inside a Container.
@@ -74,15 +70,22 @@ Ext.define('Ext.overrides.list.TreeItem', {
                 owner = me.getOwner(),
                 ownerTree = me.up('treelist'),
                 floater,
-                toolElement = me.getToolElement();
+                toolElement = me.getToolElement(),
+                expandedWidth = ownerTree.expandedWidth,
+                defaultListWidth = ownerTree.defaultListWidth;
+
+            if (expandedWidth === null) {
+                expandedWidth = defaultListWidth;
+            }
 
             me.floater = floater = new Ext.container.Container({
                 cls: ownerTree.self.prototype.element.cls + ' ' + ownerTree.uiPrefix + ownerTree.getUi() + ' ' + Ext.baseCSSPrefix + 'treelist-floater',
                 floating: true,
                 // We do not get element resize events on IE8
                 // so fall back to 6.0.1 sizing to 200 wide.
-                width: Ext.isIE8 ? 200 : (ownerTree.expandedWidth - toolElement.getWidth()),
+                width: Ext.isIE8 ? defaultListWidth : (expandedWidth - toolElement.getWidth()),
                 shadow: false,
+                hidden: true,
                 renderTo: Ext.getBody(),
                 listeners: {
                     element: 'el',

@@ -1,6 +1,6 @@
 /**
  * This plugin calls a callback whenever the mouse enters or leaves descendant
- * elements of its host component identified by a {@link Ext.ux.MouseEnter#delegate delegate}
+ * elements of its host component identified by a {@link Ext.plugin.MouseEnter#delegate delegate}
  * query selector string.
  *
  * This is useful for components which render arbitrary and transient child elements
@@ -26,18 +26,23 @@ Ext.define('Ext.plugin.MouseEnter', {
      * @cfg {String/Function} handler A callback to invoke when a the mouse enters a
      * descendant delegate.
      * @cfg {Ext.event.Event} handler.e The `mouseover` event which triggered the mouse enter.
-     * @cfg {Ext.dom.Element} handler.target The delegate element into which the mouse just entered.
+     * @cfg {HtmlElement} handler.target The delegate element into which the mouse just entered.
      */
 
     /**
      * @cfg {String/Function} [leaveHandler] A callback to invoke when a the mouse leaves a
      * descendant delegate.
      * @cfg {Ext.event.Event} handler.e The `mouseover` event which triggered the mouse leave.
-     * @cfg {Ext.dom.Element} handler.target The delegate element which the mouse just left.
+     * @cfg {HtmlElement} handler.target The delegate element which the mouse just left.
      */
 
     /**
      * @cfg {Object} [scope] The scope (`this` pointer) in which to execute the callback(s).
+     */
+    
+    /**
+     * @cfg {Number} [delay] The time in milliseconds to wait before processing the mouse event.
+     * This can prevent unwanted processing when the user swipes the mouse rapidly across the component.
      */
 
     init: function (component) {
@@ -51,46 +56,66 @@ Ext.define('Ext.plugin.MouseEnter', {
         //</debug>
         var me = this,
             listeners = {
-                mouseover: me.onMouseOver,
+                mouseover: me.onMouseEvent,
                 scope: me,
                 destroyable: true
-            };
+            },
+            element = me.element;
 
-        if (me.leaveHandler) {
-            listeners.mouseout = me.onMouseOut;
+        // Need the mouseout listener if there's a delay, so that we get an event 
+        // in which to cancel the mouseover handling.
+        if (me.leaveHandler || me.delay) {
+            listeners.mouseout = me.onMouseEvent;
         }
 
         // Element being a string means a referenced element name in the Component
-        if (typeof me.element === 'string') {
-            listeners.element = me.element;
-            me.mouseListener = component.on(listeners);
-        } else {
-            me.mouseListener = me.element.on(listeners);
+        if (typeof element === 'string') {
+            element = component[me.element];
+        }
+
+        // If the component has the element, add the listener.
+        // Modern components always will have their elements.
+        if (element){
+            me.mouseListener = element.on(listeners);
+        }
+        // For classic, we have to wait until render.
+        else {
+            component.on({
+                render: function() {
+                    me.mouseListener = component[me.element].on(listeners);
+                },
+                single: true
+            });
         }
     },
 
-    onMouseOver: function(e) {
+    onMouseEvent: function(e) {
         var me = this,
             delegate = e.getTarget(me.delegate);
 
-        // If we have changed delegates, fire the handler
+        // If we have changed delegates, fire (or schedule, if we are delaying) the handler
         if (delegate && delegate !== e.getRelatedTarget(me.delegate)) {
-            Ext.callback(me.handler, null, [e, delegate], 0, me.cmp, me.scope);
+            if (me.delay) {
+                clearTimeout(me.mouseEventTimer);
+                me.mouseEventTimer = Ext.defer(me.handleMouseEvent, me.delay, me, [e, delegate]);
+            } else {
+                me.handleMouseEvent(e, delegate);
+            }
         }
     },
 
-    onMouseOut: function(e) {
-        var me = this,
-            delegate = e.getRelatedTarget(me.delegate);
+    handleMouseEvent: function(e, delegate) {
+        var me = this;
 
-        // If we have left a delegate, fire the leave handler
-        if (delegate && delegate !== e.getTarget(me.delegate)) {
+        if (e.type === 'mouseover') {
+            Ext.callback(me.handler, null, [e, delegate], 0, me.cmp, me.scope);
+        } else if (me.leaveHandler) {
             Ext.callback(me.leaveHandler, null, [e, delegate], 0, me.cmp, me.scope);
         }
     },
 
     destroy: function () {
-        this.callParent();
         Ext.destroy(this.mouseListener);
+        this.callParent();
     }
 });
