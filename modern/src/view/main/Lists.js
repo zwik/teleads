@@ -20,23 +20,12 @@ Ext.define('Ads.view.main.Lists', {
     viewModel: 'main',
 
     tabBarPosition: 'bottom',
-	
+
 	tabBar: {
 		scrollable: 'horizontal'
 	},
 
-	defaults: {
-		listeners: {
-			activate: function (tab, eOpts) {
-				var navView = this.up('navigationview');
-				if (navView) {
-					this.up('navigationview').getNavigationBar().setTitle(tab.title);
-				}
-			}
-		}
-	},
-
-    items: [ 
+    items: [
 		{
 			title: 'Aangeboden',
             iconCls: 'x-fa fa-tag',
@@ -78,7 +67,7 @@ Ext.define('Ads.view.main.Lists', {
 						 '<div class=\"prijs\">Prijs: {prijs}</div>' +
 						 '<div class=\"geplaatst\">Geplaatst: {geplaatst}</div>' +
 						 '</div>'
-				
+
 			} ]
         }, {
 			title: 'Oproepen',

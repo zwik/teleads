@@ -1,8 +1,8 @@
 Ext.define('Ads.controller.Application', {
 	extend: 'Ext.app.Controller',
-	
+
 	stores: ['Aangeboden', 'Gevraagd', 'Ruilen', 'Oproepen', 'Overig'],
-	
+
 	config: {
 		data: null,
 		details: null,
@@ -20,6 +20,9 @@ Ext.define('Ads.controller.Application', {
 		},
 		'navigationview': {
 			back: 'onBack'
+		},
+		'app-lists': {
+			activeitemchange: 'tabPress'
 		}
 	},
 
@@ -27,7 +30,7 @@ Ext.define('Ads.controller.Application', {
 		ref: 'navView',
 		selector: 'navigationview'
 	} ],
-	
+
 	init: function() {
 		this.makeRequest();
 	},
@@ -51,7 +54,7 @@ Ext.define('Ads.controller.Application', {
 		};
 		xhr.send();
 		console.info('YQL sent');
-		
+
 		Ext.Deferred.all([deferred.promise]).then(function(response) {
 			this.processData(response);
 		}, null, null, me);
@@ -193,7 +196,7 @@ Ext.define('Ads.controller.Application', {
 		var advertentie = this.getDetails(),
 			form = Ext.create('Ext.form.Panel', {
 				header: false,
-				items: [ 
+				items: [
 				{
 					xtype: 'textareafield',
 					labelAlign: 'top',
@@ -242,12 +245,19 @@ Ext.define('Ads.controller.Application', {
 			navView = this.getNavView();
 
 		navView.push(form);
-		navView.getNavigationBar().setTitle(advertentie.titel);
 		navView.setMasked(false);
 
 	},
-	
+
 	onBack: function (self, view, eOpts) {
 		this.getNavView().getNavigationBar().setTitle(this.getLijst());
+	},
+
+	tabPress: function (self, value, oldValue, eOpts) {
+		debugger;
+		var navView = this.getNavView();
+		if (navView) {
+			this.getNavView().getNavigationBar().setTitle(value.title);
+		}
 	}
 });
