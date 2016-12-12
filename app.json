@@ -536,8 +536,8 @@
         "modern": {
             "toolkit": "modern",
 
-            "theme": "theme-cupertino",
-            
+            "theme": "theme-ios",
+
             "sass": {
                 // "save": "modern/sass/save.scss"
             }
