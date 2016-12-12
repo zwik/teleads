@@ -198,7 +198,7 @@ Ext.define('Ads.controller.Application', {
 				header: false,
 				items: [
 				{
-					xtype: 'textareafield',
+					xtype: 'htmlfield',
 					labelAlign: 'top',
 					label: 'Advertentie',
 					value: advertentie.advertentie,
