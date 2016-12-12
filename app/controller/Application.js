@@ -254,7 +254,6 @@ Ext.define('Ads.controller.Application', {
 	},
 
 	tabPress: function (self, value, oldValue, eOpts) {
-		debugger;
 		var navView = this.getNavView();
 		if (navView) {
 			this.getNavView().getNavigationBar().setTitle(value.title);
