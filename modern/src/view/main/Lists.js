@@ -10,14 +10,8 @@ Ext.define('Ads.view.main.Lists', {
     xtype: 'app-lists',
 
     requires: [
-        'Ext.MessageBox',
-
-        'Ads.view.main.MainController',
-        'Ads.view.main.MainModel'
+        'Ext.MessageBox'
     ],
-
-    controller: 'main',
-    viewModel: 'main',
 
     tabBarPosition: 'bottom',
 
