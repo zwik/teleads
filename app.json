@@ -536,7 +536,7 @@
         "modern": {
             "toolkit": "modern",
 
-            "theme": "theme-ios",
+            "theme": "theme-material",
 
             "sass": {
                 // "save": "modern/sass/save.scss"
