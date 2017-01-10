@@ -232,13 +232,27 @@ Ext.define('Ads.controller.Application', {
 					labelAlign: 'top',
 					label: 'Mail',
 					value: advertentie.mail.split('mailto:')[1],
-					readOnly: true
+					readOnly: true,
+					listeners: {
+						focus: {
+							fn: function() {
+								window.location = advertentie.mail;
+							}
+						}
+					}
 				}, {
 					xtype: 'textfield',
 					labelAlign: 'top',
 					label: 'Telefoonnummer',
 					value: advertentie.telefoonnummer,
-					readOnly: true
+					readOnly: true,
+					listeners: {
+						focus: {
+							fn: function() {
+								window.location = 'tel:' + advertentie.telefoonnummer;
+							}
+						}
+					}
 				}, {
 					xtype: 'textfield',
 					labelAlign: 'top',
