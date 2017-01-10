@@ -32,6 +32,7 @@ Ext.define('Ads.view.main.Lists', {
             layout: 'fit',
             items: [ {
 				xtype: 'list',
+        striped: true,
 				store: 'Aangeboden',
 				itemTpl: '<div class=\"advertentie\">' +
 						 '<div class=\"titel\">{titel}</div>' +
