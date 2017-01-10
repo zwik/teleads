@@ -174,11 +174,13 @@ Ext.define('Ads.controller.Application', {
 	},
 
 	processDetails: function (data, record) {
+		var me = this;
 		console.info('Start processing details');
+		var ad = me.processAd(data[0].query.results.td.content);
 
 		var advertentieDetails = {
 				titel: record.get('titel'),
-				advertentie: data[0].query.results.td.content,
+				advertentie: ad,
 				bedrag: data[0].query.results.tbody.tr[0].td[1].content,
 				adverteerder: data[0].query.results.tbody.tr[1].td[1].a.content,
 				mail: data[0].query.results.tbody.tr[1].td[1].a.href,
@@ -190,6 +192,10 @@ Ext.define('Ads.controller.Application', {
 		this.setLijst(this.getNavView().getNavigationBar().getTitle());
 		this.setDetails(advertentieDetails);
 		this.createDetailForm();
+	},
+
+	processAd: function(ad) {
+		return ad.replace(/\r/g, '<br>');
 	},
 
 	createDetailForm: function () {
