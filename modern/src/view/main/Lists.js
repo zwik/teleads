@@ -47,6 +47,7 @@ Ext.define('Ads.view.main.Lists', {
 			layout: 'fit',
 			items: [ {
 				xtype: 'list',
+        striped: true,
 				store: 'Gevraagd',
 				itemTpl: '<div class=\"advertentie\">' +
 						 '<div class=\"titel\">{titel}</div>' +
@@ -61,6 +62,7 @@ Ext.define('Ads.view.main.Lists', {
 			layout: 'fit',
 			items: [ {
 				xtype: 'list',
+        striped: true,
 				store: 'Ruilen',
 				itemTpl: '<div class=\"advertentie\">' +
 						 '<div class=\"titel\">{titel}</div>' +
@@ -76,6 +78,7 @@ Ext.define('Ads.view.main.Lists', {
 			layout: 'fit',
 			items: [ {
 				xtype: 'list',
+        striped: true,
 				store: 'Oproepen',
 				itemTpl: '<div class=\"advertentie\">' +
 						 '<div class=\"titel\">{titel}</div>' +
@@ -90,6 +93,7 @@ Ext.define('Ads.view.main.Lists', {
 			layout: 'fit',
 			items: [ {
 				xtype: 'list',
+        striped: true,
 				store: 'Overig',
 				itemTpl: '<div class=\"advertentie\">' +
 						 '<div class=\"titel\">{titel}</div>' +
